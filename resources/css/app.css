@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+@import './tom-select.css';
+
+@plugin '@tailwindcss/forms';
+
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@custom-variant dark (&:where([data-theme=corporate], [data-theme=luxury] *));
+
+@plugin "daisyui" {
+   themes: corporate --default, luxury;
+ }
