@@ -11,7 +11,7 @@
                     <label for="name" class="label">
                         <span class="label-text">Nama Lengkap <span class="text-error">*</span></span>
                     </label>
-                    <x-text-input type="text" id="name" wire:model="form.name"
+                    <x-text-input type="text" id="name" wire:model.live="form.name"
                         placeholder="Masukkan nama lengkap" class="input input-bordered w-full" />
                     @error('form.name')
                         <span class="text-error text-sm mt-1 block">{{ $message }}</span>
@@ -22,8 +22,8 @@
                     <label for="email" class="label">
                         <span class="label-text">Email <span class="text-error">*</span></span>
                     </label>
-                    <x-text-input type="email" id="email" wire:model="form.email" placeholder="Masukkan email"
-                        class="input input-bordered w-full" />
+                    <x-text-input type="email" id="email" wire:model.live="form.email"
+                        placeholder="Masukkan email" class="input input-bordered w-full" />
                     @error('form.email')
                         <span class="text-error text-sm mt-1 block">{{ $message }}</span>
                     @enderror
@@ -37,7 +37,7 @@
                     </label>
                     <div class="relative">
                         <x-text-input type="{{ $showPassword ? 'text' : 'password' }}" id="password"
-                            wire:model="form.password" placeholder="Masukkan password"
+                            wire:model.live="form.password" placeholder="Masukkan password"
                             class="input input-bordered w-full pr-10" />
                         <button type="button" wire:click="$toggle('showPassword')"
                             class="absolute inset-y-0 right-0 pr-3 flex items-center text-base-content hover:text-primary transition duration-200">
@@ -67,6 +67,7 @@
                                 labelField: 'name',
                                 searchField: 'name',
                                 maxItems: 5,
+                                placeholder: 'Pilih Role',
                                 plugins: ['remove_button'],
                                 load: function(query, callback) {
                                     $wire.getRoles(query).then(results => {
@@ -77,16 +78,24 @@
                                 },
                                 render: {
                                     input: function(data, escape) {
-                                        return `<input class='input input-bordered w-full' autocomplete='off' />`;
+                                        return `<input autocomplete='off' />`;
                                     },
                                     option: function(item, escape) {
-                                        return `<div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>                                                                            <span class='badge badge-primary mr-2'>${escape(item.name)}</span>
-                                                                                                                                                                                                                                                                                                                                                                    </div>`;
+                                        return `
+                                                                                                                                <div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>
+                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                </div>
+                                                                                                                            `;
                                     },
                                     item: function(item, escape) {
-                                        return `<div class='badge badge-primary'>
-                                                                                                                                                                                                                                                                                                                                                                        <span>${escape(item.name)}</span>
-                                                                                                                                                                                                                                                                                                                                                                    </div>`;
+                                        return `
+                                                                                                                                <div>
+                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                </div>
+                                                                                                                            `;
+                                    },
+                                    no_results: function(data, escape) {
+                                        return `<div class='p-2 text-error text-center bg-base-200 rounded'>Tidak ada hasil ditemukan</div>`;
                                     }
                                 }
                             });"
@@ -94,10 +103,11 @@
                                     $el.roles.addOption(event.detail.data);
                                     $el.roles.addItem(event.detail.data.id);
                                 "
-                                @set-reset.window="$el.roles.clear()" id="roles" type="text" class="mt-1 w-full"
-                                wire:model="form.roles" multiple autocomplete="roles">
+                                @set-reset.window="$el.roles.clear()" id="roles" type="text"
+                                class="focus:outline-hidden" wire:model.live="form.roles" multiple autocomplete="roles">
                                 <option value=""></option>
                             </x-tom>
+
                         </div>
                         <button type="button" onclick="document.getElementById('create_role_modal').showModal()"
                             class="btn btn-outline btn-base-content tooltip tooltip-bottom" data-tip="Buat Role Baru">
