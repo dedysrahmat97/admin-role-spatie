@@ -75,20 +75,21 @@
                                 },
                                 render: {
                                     input: function(data, escape) {
-                                        return `<input class='input input-bordered w-full' autocomplete='off' />`;
+                                        return `<input autocomplete='off' />`;
                                     },
                                     option: function(item, escape) {
-                                        return `<div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span class='badge'>${escape(item.name)}</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>`;
+                                        return `
+                                                                                                                                                                                                                                                                                                                <div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>
+                                                                                                                                                                                                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                            `;
                                     },
                                     item: function(item, escape) {
-                                        return `<div class='badge badge-primary'>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <span>${escape(item.name)}</span>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>`;
-                                    },
-                                    no_results: function() {
-                                        return `<div class='py-2 flex items-center justify-center h-16 text-error text-center bg-base-200 rounded'>Tidak ada hasil ditemukan</div>`;
+                                        return `
+                                                                                                                                                                                                                                                                                                                <div>
+                                                                                                                                                                                                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                            `;
                                     }
                                 }
                             });" @set-reset.window="$el.roles.clear()" id="form.roles"

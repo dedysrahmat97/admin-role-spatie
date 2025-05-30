@@ -82,32 +82,28 @@
                                     },
                                     option: function(item, escape) {
                                         return `
-                                                                                                                                <div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>
-                                                                                                                                    <span>${escape(item.name)}</span>
-                                                                                                                                </div>
-                                                                                                                            `;
+                                                                                                                                                                                                                                                                                                                <div class='flex items-center p-2 hover:bg-primary hover:text-primary-content'>
+                                                                                                                                                                                                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                            `;
                                     },
                                     item: function(item, escape) {
                                         return `
-                                                                                                                                <div>
-                                                                                                                                    <span>${escape(item.name)}</span>
-                                                                                                                                </div>
-                                                                                                                            `;
-                                    },
-                                    no_results: function(data, escape) {
-                                        return `<div class='p-2 text-error text-center bg-base-200 rounded'>Tidak ada hasil ditemukan</div>`;
+                                                                                                                                                                                                                                                                                                                <div>
+                                                                                                                                                                                                                                                                                                                    <span>${escape(item.name)}</span>
+                                                                                                                                                                                                                                                                                                                </div>
+                                                                                                                                                                                                                                                                                                            `;
                                     }
                                 }
                             });"
                                 @set-role-create.window="
-                                    $el.roles.addOption(event.detail.data);
-                                    $el.roles.addItem(event.detail.data.id);
-                                "
+        $el.roles.addOption(event.detail.data);
+        $el.roles.addItem(event.detail.data.id);
+    "
                                 @set-reset.window="$el.roles.clear()" id="roles" type="text"
                                 class="focus:outline-hidden" wire:model.live="form.roles" multiple autocomplete="roles">
                                 <option value=""></option>
                             </x-tom>
-
                         </div>
                         <button type="button" onclick="document.getElementById('create_role_modal').showModal()"
                             class="btn btn-outline btn-base-content tooltip tooltip-bottom" data-tip="Buat Role Baru">
